@@ -50,9 +50,8 @@ public class Deck {
     // Shuffle the deck
     public void shuffle()
     {
-        for (int i = cardsLeft; i > 0; i--)
-        {
-            int random = (int)(Math.random() * i);
+        for (int i = cardsLeft; i > 0; i--) {
+            int random = (int) (Math.random() * i);
             Card temp1 = cards.get(random);
             Card temp2 = cards.get(i);
             cards.set(i, temp1);

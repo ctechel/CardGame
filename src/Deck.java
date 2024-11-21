@@ -6,7 +6,7 @@ public class Deck {
     private int cardsLeft;
 
     // Constructors
-    public Deck(int[] ranks, String[] suits, int[] values, int cardsLeft)
+    public Deck(String[] ranks, String[] suits, int[] values)
     {
         cards = new ArrayList<Card>();
         for (int i = 0; i < ranks.length; i++)
@@ -16,7 +16,7 @@ public class Deck {
                 cards.add(new Card(ranks[i], suits[j], values[i]));
             }
         }
-        this.cardsLeft = cardsLeft;
+        this.cardsLeft = cards.size();
     }
 
     // Check if the deck is empty
@@ -50,12 +50,12 @@ public class Deck {
     // Shuffle the deck
     public void shuffle()
     {
-        for (int i = cardsLeft; i > 0; i--) {
+        for (int i = cardsLeft - 1; i >= 0; i--)
+        {
             int random = (int) (Math.random() * i);
-            Card temp1 = cards.get(random);
-            Card temp2 = cards.get(i);
-            cards.set(i, temp1);
-            cards.set(random, temp2);
+            Card temp = cards.get(i);
+            cards.set(i, cards.get(random));
+            cards.set(random, temp);
         }
     }
 }

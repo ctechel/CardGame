@@ -1,11 +1,11 @@
 public class Card {
     // Instance Variables
-    private int rank;
+    private String rank;
     private String suit;
     private int value;
 
     // Constructors
-    public void Card(int rank, String suit, int value)
+    public Card(String rank, String suit, int value)
     {
         this.rank = rank;
         this.suit = suit;
@@ -13,11 +13,11 @@ public class Card {
     }
 
     // Getters and Setters
-    public int getRank() {
+    public String getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 
@@ -40,6 +40,6 @@ public class Card {
     // toString Method
     public String toString()
     {
-        return  rank + "of" + suit;
+        return  rank + " of " + suit;
     }
 }

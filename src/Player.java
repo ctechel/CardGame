@@ -44,5 +44,10 @@ public class Player {
     {
         this.hand.add(card);
     }
+
+    public String toString()
+    {
+        return this.name + " has " + this.points + " points \n" + this.name + "'s cards: " + this.hand;
+    }
 }
 

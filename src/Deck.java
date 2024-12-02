@@ -43,7 +43,8 @@ public class Deck {
         }
         else
         {
-            return cards.get((int)(Math.random() * cardsLeft));
+            this.cardsLeft--;
+            return cards.get(cardsLeft);
         }
     }
 

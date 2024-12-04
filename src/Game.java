@@ -8,6 +8,12 @@ public class Game {
     private int[] values = {14, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
     private Deck deck;
     private ArrayList<Player> players;
+    private int round = 1;
+    private int counter = 0;
+    private int max;
+    private int idx;
+    private String suit;
+    private Card cardWin;
 
     // Constructor
     public Game()
@@ -41,10 +47,72 @@ public class Game {
         System.out.println(player3 + "'s hand is: " + players.get(2).getHand());
         System.out.println(player4 + "'s hand is: " + players.get(3).getHand());
         System.out.println("\nWhich player has the 2 of Clubs? (Enter a number 1-4)");
-
-        System.out.println(("It is " + players.get(s1.nextInt() - 1).getName()) + "'s turn. You have played the 2 of Clubs");
+        counter = s1.nextInt() - 1;
+        System.out.println(("It is " + players.get(counter).getName()) + "'s turn. You have played the 2 of Clubs");
+        max = 2;
+        cardWin = new Card("2","Clubs", 2);
+        suit = "Clubs";
+        System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
+                "of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
+        idx = s1.nextInt();
+        System.out.println("You played " + players.get(counter).getHand(idx));
+        max = checkMax(players.get(counter).getHand(idx));
+        System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index" +
+                "of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
+        idx = s1.nextInt();
+        System.out.println("You played " + players.get(counter).getHand(idx));
+        max = checkMax(players.get(counter).getHand(idx));
+        System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index" +
+                "of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
+        idx = s1.nextInt();
+        System.out.println("You played " + players.get(counter).getHand(idx));
+        max = checkMax(players.get(counter).getHand(idx));
+        System.out.println("The winner of the hand was the " + cardWin);
+        round++;
+        while (!gameOver())
+        {
+            round++;
+        }
     }
 
+    public int checkMax(Card card)
+    {
+        if (card.getValue() > max)
+        {
+            if (suit.equals(card.getSuit()))
+            {
+                max = card.getValue();
+                cardWin.setValue(max);
+                cardWin.setRank(card.getRank());
+            }
+        }
+        return max;
+    }
+
+    // Get whose turn it is
+    public int getTurn()
+    {
+        if (counter < 3)
+        {
+            counter++;
+            return counter;
+        }
+        else
+        {
+            counter = 0;
+            return 0;
+        }
+    }
+
+    // Checks if the game is over if all 13 rounds have happened
+    public boolean gameOver()
+    {
+        if (round > 13)
+        {
+            return true;
+        }
+        return false;
+    }
     // Deals each player an amount of cards
 
     private static void printInstructions()

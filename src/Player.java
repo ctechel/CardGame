@@ -26,6 +26,10 @@ public class Player {
         return hand;
     }
 
+    public Card getHand(int idx) {
+        return hand.get(idx);
+    }
+
     public String getName() {
         return name;
     }

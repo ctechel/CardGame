@@ -71,6 +71,29 @@ public class Game {
         round++;
         while (!gameOver())
         {
+            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
+                    "of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
+            idx = s1.nextInt();
+            System.out.println("You played " + players.get(counter).getHand(idx));
+            cardWin = new Card(players.get(counter).getHand(idx).getRank(), players.get(counter).getHand(idx).getSuit(), players.get(counter).getHand(idx).getValue());
+            max = cardWin.getValue();
+            suit = cardWin.getSuit();
+            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
+                    " of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
+            idx = s1.nextInt();
+            System.out.println("You played " + players.get(counter).getHand(idx));
+            max = checkMax(players.get(counter).getHand(idx));
+            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index" +
+                    " of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
+            idx = s1.nextInt();
+            System.out.println("You played " + players.get(counter).getHand(idx));
+            max = checkMax(players.get(counter).getHand(idx));
+            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index" +
+                    " of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
+            idx = s1.nextInt();
+            System.out.println("You played " + players.get(counter).getHand(idx));
+            max = checkMax(players.get(counter).getHand(idx));
+            System.out.println("The winner of the hand was the " + cardWin);
             round++;
         }
     }

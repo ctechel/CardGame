@@ -14,6 +14,8 @@ public class Game {
     private int idx;
     private String suit;
     private Card cardWin;
+    private int points;
+    private Player handWin;
 
     // Constructor
     public Game()
@@ -22,16 +24,16 @@ public class Game {
         deck.shuffle();
         players = new ArrayList<Player>();
         Scanner s1 = new Scanner(System.in);
-        System.out.println("What is the name of player 1?");
+        System.out.println("What is the name of player 1? Make sure all the names are different.");
         players.add(new Player(s1.nextLine()));
         String player1 = players.get(0).getName();
-        System.out.println("What is the name of player 2?");
+        System.out.println("What is the name of player 2? Make sure all the names are different.");
         players.add(new Player(s1.nextLine()));
         String player2 = players.get(1).getName();
-        System.out.println("What is the name of player 3?");
+        System.out.println("What is the name of player 3? Make sure all the names are different.");
         players.add(new Player(s1.nextLine()));
         String player3 = players.get(2).getName();
-        System.out.println("What is the name of player 4?");
+        System.out.println("What is the name of player 4? Make sure all the names are different.");
         players.add(new Player(s1.nextLine()));
         String player4 = players.get(3).getName();
         // Give each player a hand
@@ -48,63 +50,133 @@ public class Game {
         System.out.println(player4 + "'s hand is: " + players.get(3).getHand());
         System.out.println("\nWhich player has the 2 of Clubs? (Enter a number 1-4)");
         counter = s1.nextInt() - 1;
-        System.out.println(("It is " + players.get(counter).getName()) + "'s turn. You have played the 2 of Clubs");
-        max = 2;
+        System.out.println(("It is " + players.get(counter).getName()) + "'s turn. You have to play the 2 of Clubs. What index is it at?");
+        idx = s1.nextInt();
+        this.max = 2;
+        this.handWin = players.get(counter);
+        this.points = 0;
+        players.get(counter).removeCard(idx);
         cardWin = new Card("2","Clubs", 2);
-        suit = "Clubs";
+        this.suit = "Clubs";
+        System.out.println("You played " + players.get(counter).getHand(idx));
         System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
                 "of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
         idx = s1.nextInt();
         System.out.println("You played " + players.get(counter).getHand(idx));
-        max = checkMax(players.get(counter).getHand(idx));
-        System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index" +
+        this.max = checkMax(players.get(counter).getHand(idx), players.get(counter));
+        this.points += getPoints(players.get(counter).getHand(idx));
+        players.get(counter).removeCard(idx);
+        System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
                 "of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
         idx = s1.nextInt();
         System.out.println("You played " + players.get(counter).getHand(idx));
-        max = checkMax(players.get(counter).getHand(idx));
-        System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index" +
+        this.max = checkMax(players.get(counter).getHand(idx), players.get(counter));
+        this.points += getPoints(players.get(counter).getHand(idx));
+        players.get(counter).removeCard(idx);
+        System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
                 "of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
         idx = s1.nextInt();
         System.out.println("You played " + players.get(counter).getHand(idx));
-        max = checkMax(players.get(counter).getHand(idx));
+        this.max = checkMax(players.get(counter).getHand(idx), players.get(counter));
+        this.points += getPoints(players.get(counter).getHand(idx));
+        players.get(counter).removeCard(idx);
+        this.handWin.addPoints(points);
+        counter = getStart(handWin);
         System.out.println("The winner of the hand was the " + cardWin);
         round++;
         while (!gameOver())
         {
-            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
+            this.points = 0;
+            System.out.println("It is " + this.handWin.getName() + "'s turn. Choose a card to play by the index " +
                     "of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
             idx = s1.nextInt();
             System.out.println("You played " + players.get(counter).getHand(idx));
             cardWin = new Card(players.get(counter).getHand(idx).getRank(), players.get(counter).getHand(idx).getSuit(), players.get(counter).getHand(idx).getValue());
-            max = cardWin.getValue();
-            suit = cardWin.getSuit();
+            this.max = cardWin.getValue();
+            this.suit = cardWin.getSuit();
+            this.points += getPoints(players.get(counter).getHand(idx));
+            players.get(counter).removeCard(idx);
             System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
                     " of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
             idx = s1.nextInt();
             System.out.println("You played " + players.get(counter).getHand(idx));
-            max = checkMax(players.get(counter).getHand(idx));
-            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index" +
+            this.max = checkMax(players.get(counter).getHand(idx), players.get(counter));
+            this.points += getPoints(players.get(counter).getHand(idx));
+            players.get(counter).removeCard(idx);
+            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
                     " of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
             idx = s1.nextInt();
             System.out.println("You played " + players.get(counter).getHand(idx));
-            max = checkMax(players.get(counter).getHand(idx));
-            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index" +
+            this.max = checkMax(players.get(counter).getHand(idx), players.get(counter));
+            this.points += getPoints(players.get(counter).getHand(idx));
+            players.get(counter).removeCard(idx);
+            System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
                     " of the card, the first card is 0. This is your hand: " + players.get(counter).getHand());
             idx = s1.nextInt();
             System.out.println("You played " + players.get(counter).getHand(idx));
-            max = checkMax(players.get(counter).getHand(idx));
+            this.max = checkMax(players.get(counter).getHand(idx), players.get(counter));
+            this.points += getPoints(players.get(counter).getHand(idx));
+            players.get(counter).removeCard(idx);
+            this.handWin.addPoints(points);
+            counter = getStart(handWin);
             System.out.println("The winner of the hand was the " + cardWin);
             round++;
         }
+        for (int i = 0; i < 4; i++)
+        {
+            if (players.get(i).getPoints() == 26)
+            {
+                players.get(0).setPoints(26);
+                players.get(1).setPoints(26);
+                players.get(2).setPoints(26);
+                players.get(3).setPoints(26);
+                players.get(i).setPoints(0);
+                break;
+            }
+        }
+        System.out.println(players.get(0).getName() + " had " + players.get(0).getPoints() + " points");
+        System.out.println(players.get(1).getName() + " had " + players.get(1).getPoints() + " points");
+        System.out.println(players.get(2).getName() + " had " + players.get(2).getPoints() + " points");
+        System.out.println(players.get(3).getName() + " had " + players.get(3).getPoints() + " points");
+        System.out.println("\nCongrats on finishing the game!!!");
     }
 
-    public int checkMax(Card card)
+    // Get the player that starts the next round
+    public int getStart(Player p)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (p.getName().equals(players.get(i).getName()))
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    // Get the points that were given in the round
+    public int getPoints(Card card)
+    {
+        if (card.getSuit().equals("Hearts"))
+        {
+            return 1;
+        }
+        else if (card.getSuit().equals("Spades") && card.getRank().equals("Q"))
+        {
+            return 13;
+        }
+        return 0;
+    }
+
+    // See if the played card is the biggest in the round
+    public int checkMax(Card card, Player p)
     {
         if (card.getValue() > max)
         {
             if (suit.equals(card.getSuit()))
             {
-                max = card.getValue();
+                this.handWin = p;
+                this.max = card.getValue();
                 cardWin.setValue(max);
                 cardWin.setRank(card.getRank());
             }

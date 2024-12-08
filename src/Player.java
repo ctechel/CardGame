@@ -37,6 +37,10 @@ public class Player {
     public int getPoints() {
         return points;
     }
+    public void setPoints(int points)
+    {
+        this.points = points;
+    }
 
     // Add points to a players point total
     public void addPoints(int points)
@@ -48,6 +52,11 @@ public class Player {
     public void addCard(Card card)
     {
         this.hand.add(card);
+    }
+
+    public void removeCard(int idx)
+    {
+        this.hand.remove(idx);
     }
 
     public String toString()

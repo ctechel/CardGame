@@ -1,3 +1,4 @@
+// Card Game by Carter Techel
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,27 +17,25 @@ public class Game {
     private Card cardWin;
     private int points;
     private Player handWin;
+    private GameView window;
 
     // Constructor
     public Game()
     {
         // Make a deck for the game
+        this.window = new GameView(this);
         deck = new Deck(this.ranks, this.suits, this.values);
-        deck.shuffle();
         players = new ArrayList<Player>();
         Scanner s1 = new Scanner(System.in);
         // Get the players in the games name
-        System.out.println("What is the name of player 1? Make sure all the names are different.");
-        players.add(new Player(s1.nextLine()));
+        for (int i = 0; i < 4; i++)
+        {
+            System.out.println("What is the name of player " + (i + 1) +  "? Make sure all the names are different.");
+            players.add(new Player(s1.nextLine()));
+        }
         String player1 = players.get(0).getName();
-        System.out.println("What is the name of player 2? Make sure all the names are different.");
-        players.add(new Player(s1.nextLine()));
         String player2 = players.get(1).getName();
-        System.out.println("What is the name of player 3? Make sure all the names are different.");
-        players.add(new Player(s1.nextLine()));
         String player3 = players.get(2).getName();
-        System.out.println("What is the name of player 4? Make sure all the names are different.");
-        players.add(new Player(s1.nextLine()));
         String player4 = players.get(3).getName();
         // Give each player a hand
         for (int i = 0; i < 13; i++)
@@ -52,11 +51,11 @@ public class Game {
         System.out.println(player3 + "'s hand is: " + players.get(2).getHand());
         System.out.println(player4 + "'s hand is: " + players.get(3).getHand());
         // Asks which player starts the game
-        System.out.println("\nWhich player has the 2 of Clubs? (Enter a number 1-4)");
-        counter = s1.nextInt() - 1;
+        System.out.println("\nWhich player has the 2 of Clubs? (Enter a number 0-3)");
+        counter = s1.nextInt();
         // Have the first player play the 2 of Clubs
         System.out.println(("It is " + players.get(counter).getName()) + "'s turn. You have to play the 2 of Clubs. What index is it at?");
-        idx = s1.nextInt();
+        idx = s1.nextInt() - 1;
         this.max = 2;
         this.handWin = players.get(counter);
         this.points = 0;

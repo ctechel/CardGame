@@ -1,3 +1,4 @@
+// Card Game by Carter Techel
 public class Card {
     // Instance Variables
     private String rank;

@@ -1,3 +1,4 @@
+// Card Game by Carter Techel
 import java.util.ArrayList;
 
 public class Deck {
@@ -17,6 +18,7 @@ public class Deck {
             }
         }
         this.cardsLeft = cards.size();
+        this.shuffle();
     }
 
     // Check if the deck is empty

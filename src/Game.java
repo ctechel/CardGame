@@ -27,6 +27,35 @@ public class Game {
         deck = new Deck(this.ranks, this.suits, this.values);
         players = new ArrayList<Player>();
         Scanner s1 = new Scanner(System.in);
+        setup(s1);
+        // Asks which player starts the game
+        System.out.println("\nWhich player has the 2 of Clubs? (Enter a number 0-3)");
+        counter = s1.nextInt();
+        // Have the first player play the 2 of Clubs
+        firstRound(s1);
+        playGame(s1);
+        // Print out the winning scores and if someone "shot the moon" give everyone else 26 points
+        for (int i = 0; i < 4; i++)
+        {
+            if (players.get(i).getPoints() == 26)
+            {
+                players.get(0).setPoints(26);
+                players.get(1).setPoints(26);
+                players.get(2).setPoints(26);
+                players.get(3).setPoints(26);
+                players.get(i).setPoints(0);
+                break;
+            }
+        }
+        System.out.println(players.get(0).getName() + " had " + players.get(0).getPoints() + " points");
+        System.out.println(players.get(1).getName() + " had " + players.get(1).getPoints() + " points");
+        System.out.println(players.get(2).getName() + " had " + players.get(2).getPoints() + " points");
+        System.out.println(players.get(3).getName() + " had " + players.get(3).getPoints() + " points");
+        System.out.println("\nCongrats on finishing the game!!!");
+    }
+
+    public void setup(Scanner s1)
+    {
         // Get the players in the games name
         for (int i = 0; i < 4; i++)
         {
@@ -50,10 +79,10 @@ public class Game {
         System.out.println(player2 + "'s hand is: " + players.get(1).getHand());
         System.out.println(player3 + "'s hand is: " + players.get(2).getHand());
         System.out.println(player4 + "'s hand is: " + players.get(3).getHand());
-        // Asks which player starts the game
-        System.out.println("\nWhich player has the 2 of Clubs? (Enter a number 0-3)");
-        counter = s1.nextInt();
-        // Have the first player play the 2 of Clubs
+    }
+
+    public void firstRound(Scanner s1)
+    {
         System.out.println(("It is " + players.get(counter).getName()) + "'s turn. You have to play the 2 of Clubs. What index is it at?");
         idx = s1.nextInt() - 1;
         this.max = 2;
@@ -90,6 +119,10 @@ public class Game {
         counter = getStart(handWin);
         System.out.println("The winner of the hand was the " + cardWin);
         round++;
+    }
+
+    public void playGame(Scanner s1)
+    {
         // Until all of the rounds are over
         while (!gameOver())
         {
@@ -138,25 +171,9 @@ public class Game {
             System.out.println("The winner of the hand was the " + cardWin);
             round++;
         }
-        // Print out the winning scores and if someone "shot the moon" give everyone else 26 points
-        for (int i = 0; i < 4; i++)
-        {
-            if (players.get(i).getPoints() == 26)
-            {
-                players.get(0).setPoints(26);
-                players.get(1).setPoints(26);
-                players.get(2).setPoints(26);
-                players.get(3).setPoints(26);
-                players.get(i).setPoints(0);
-                break;
-            }
-        }
-        System.out.println(players.get(0).getName() + " had " + players.get(0).getPoints() + " points");
-        System.out.println(players.get(1).getName() + " had " + players.get(1).getPoints() + " points");
-        System.out.println(players.get(2).getName() + " had " + players.get(2).getPoints() + " points");
-        System.out.println(players.get(3).getName() + " had " + players.get(3).getPoints() + " points");
-        System.out.println("\nCongrats on finishing the game!!!");
     }
+
+
 
     // Get the player that starts the next round
     public int getStart(Player p)

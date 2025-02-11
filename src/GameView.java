@@ -10,14 +10,13 @@ public class GameView extends JFrame
     private final int WINDOW_HEIGHT = 900;
     private final int TITLE_BAR_HEIGHT = 23;
     private final int INSTRUCTIONS_X_VAL = 80;
-    private final int INSTRUCTIONS_Y_VAL = 250;
+    private final int INSTRUCTIONS_Y_VAL = 225;
     private final int Y_VAL_CHANGE = 50;
     private Game game;
-    private int state;
+
     public GameView(Game game)
     {
         this.game = game;
-        state = 0;
         background = new ImageIcon("Resources/background.jpg").getImage();
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -28,9 +27,16 @@ public class GameView extends JFrame
 
     public void paint(Graphics g)
     {
-        g.drawImage(background, 0, 0, this);
         g.setColor(Color.white);
-        printInstructions(g);
+        if (game.getState() == 0)
+        {
+            g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
+            printInstructions(g);
+        }
+        else if (game.getState() == 1)
+        {
+            g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
+        }
     }
 
     public void printInstructions(Graphics g)
@@ -48,5 +54,7 @@ public class GameView extends JFrame
         g.drawString("opportunity and can be led at any time. To win you want to have the least amount of points ta the end", INSTRUCTIONS_X_VAL, INSTRUCTIONS_Y_VAL + (Y_VAL_CHANGE * 7));
         g.drawString("of the round. Each heart is worth 1 point and the Queen of Spades is worth 13. If you get all 26", INSTRUCTIONS_X_VAL, INSTRUCTIONS_Y_VAL + (Y_VAL_CHANGE * 8));
         g.drawString("points in the round you get 0 points and everyone else gets 26.", INSTRUCTIONS_X_VAL, INSTRUCTIONS_Y_VAL + (Y_VAL_CHANGE * 9));
+        g.setColor(Color.black);
+        g.drawString("Input the four users names and with return after each one is entered.", INSTRUCTIONS_X_VAL, INSTRUCTIONS_Y_VAL + (Y_VAL_CHANGE * 10));
     }
 }

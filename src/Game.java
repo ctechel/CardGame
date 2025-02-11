@@ -18,6 +18,7 @@ public class Game {
     private int points;
     private Player handWin;
     private GameView window;
+    private int state;
 
     // Constructor
     public Game()
@@ -25,6 +26,7 @@ public class Game {
         // Make a deck for the game
         this.window = new GameView(this);
         deck = new Deck(this.ranks, this.suits, this.values);
+        state = 0;
         players = new ArrayList<Player>();
         Scanner s1 = new Scanner(System.in);
         setup(s1);
@@ -62,6 +64,7 @@ public class Game {
             System.out.println("What is the name of player " + (i + 1) +  "? Make sure all the names are different.");
             players.add(new Player(s1.nextLine()));
         }
+        state = 1;
         String player1 = players.get(0).getName();
         String player2 = players.get(1).getName();
         String player3 = players.get(2).getName();
@@ -173,7 +176,9 @@ public class Game {
         }
     }
 
-
+    public int getState() {
+        return state;
+    }
 
     // Get the player that starts the next round
     public int getStart(Player p)

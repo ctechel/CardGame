@@ -8,8 +8,6 @@ public class Player {
     private int points;
 
     // Constructors
-
-
     public Player(ArrayList<Card> hand, String name) {
         this.hand = hand;
         this.name = name;

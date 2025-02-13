@@ -1,11 +1,12 @@
 // Card Game by Carter Techel
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
     // Instance Variable
     private String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-    private String[] suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
+    private String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
     private int[] values = {14, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
     private Deck deck;
     private ArrayList<Player> players;
@@ -25,7 +26,7 @@ public class Game {
     {
         // Make a deck for the game
         this.window = new GameView(this);
-        deck = new Deck(this.ranks, this.suits, this.values);
+        deck = new Deck(this.ranks, this.suits, this.values, window);
         state = 0;
         players = new ArrayList<Player>();
         Scanner s1 = new Scanner(System.in);
@@ -35,6 +36,7 @@ public class Game {
         counter = s1.nextInt();
         // Have the first player play the 2 of Clubs
         firstRound(s1);
+        // Run the rest of the rounds
         playGame(s1);
         // Print out the winning scores and if someone "shot the moon" give everyone else 26 points
         for (int i = 0; i < 4; i++)
@@ -65,6 +67,7 @@ public class Game {
             players.add(new Player(s1.nextLine()));
         }
         state = 1;
+        window.repaint();
         String player1 = players.get(0).getName();
         String player2 = players.get(1).getName();
         String player3 = players.get(2).getName();
@@ -93,7 +96,7 @@ public class Game {
         this.points = 0;
         players.get(counter).removeCard(idx);
         // Have the other 3 players take there turns
-        cardWin = new Card("2","Clubs", 2);
+        cardWin = new Card("2","Clubs", 2, new ImageIcon("resources/8.png").getImage(), window);
         this.suit = "Clubs";
         System.out.println("You played " + players.get(counter).getHand(idx));
         System.out.println("It is " + players.get(getTurn()).getName() + "'s turn. Choose a card to play by the index " +
@@ -136,7 +139,7 @@ public class Game {
             idx = s1.nextInt();
             System.out.println("You played " + players.get(counter).getHand(idx));
             // Set the winning card to the card just played
-            cardWin = new Card(players.get(counter).getHand(idx).getRank(), players.get(counter).getHand(idx).getSuit(), players.get(counter).getHand(idx).getValue());
+            cardWin = new Card(players.get(counter).getHand(idx).getRank(), players.get(counter).getHand(idx).getSuit(), players.get(counter).getHand(idx).getValue(), players.get(counter).getHand(idx).getImage(), window);
             this.max = cardWin.getValue();
             this.suit = cardWin.getSuit();
             this.points += getPoints(players.get(counter).getHand(idx));
@@ -178,6 +181,10 @@ public class Game {
 
     public int getState() {
         return state;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 
     // Get the player that starts the next round

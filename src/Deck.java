@@ -1,20 +1,28 @@
 // Card Game by Carter Techel
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Deck {
     // Instance Variables
     private ArrayList<Card> cards;
     private int cardsLeft;
+    private GameView window;
 
     // Constructors
-    public Deck(String[] ranks, String[] suits, int[] values)
+    public Deck(String[] ranks, String[] suits, int[] values, GameView window)
     {
         cards = new ArrayList<Card>();
+        int counter = 1;
+        this.window = window;
         for (int i = 0; i < ranks.length; i++)
         {
             for (int j = 0; j < suits.length; j++)
             {
-                cards.add(new Card(ranks[i], suits[j], values[i]));
+                String fileName = "resources/" + counter + ".png";
+                Image cardImage = new ImageIcon(fileName).getImage();
+                cards.add(new Card(ranks[i], suits[j], values[i], cardImage, window));
+                counter++;
             }
         }
         this.cardsLeft = cards.size();

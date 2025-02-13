@@ -1,16 +1,26 @@
+import java.awt.*;
+
 // Card Game by Carter Techel
 public class Card {
     // Instance Variables
     private String rank;
     private String suit;
     private int value;
+    private Image image;
+    private int xVal;
+    private int yVal;
+    private GameView window;
 
     // Constructors
-    public Card(String rank, String suit, int value)
+    public Card(String rank, String suit, int value, Image image, GameView window)
     {
         this.rank = rank;
         this.suit = suit;
         this.value = value;
+        this.image = image;
+        this.window = window;
+        xVal = 0;
+        yVal = 0;
     }
 
     // Getters and Setters
@@ -30,6 +40,10 @@ public class Card {
         this.suit = suit;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
     public int getValue() {
         return value;
     }
@@ -42,5 +56,11 @@ public class Card {
     public String toString()
     {
         return  rank + " of " + suit;
+    }
+
+    // Draw Method
+    public void draw(Graphics g)
+    {
+        g.drawImage(this.image, xVal, yVal, window);
     }
 }

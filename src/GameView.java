@@ -57,7 +57,7 @@ public class GameView extends JFrame
         g.drawString("of the round. Each heart is worth 1 point and the Queen of Spades is worth 13. If you get all 26", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 8));
         g.drawString("points in the round you get 0 points and everyone else gets 26.", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 9));
         g.setColor(Color.black);
-        g.drawString("Input the four users names and with return after each one is entered.", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 10));
+        g.drawString("Input 3 initials each of the four users names and hit return after each one is entered.", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 10));
     }
 
     // Visualize the game being played on the window
@@ -66,8 +66,8 @@ public class GameView extends JFrame
         g.setColor(Color.white);
         g.setFont(new Font("Serif", Font.BOLD, 20));
         g.drawString(game.getPlayers().get(0).getName() + " (0) ", WINDOW_WIDTH / 2 - 50, 200);
-        g.drawString(game.getPlayers().get(1).getName() + " (1) ", 200, WINDOW_HEIGHT / 2);
-        g.drawString(game.getPlayers().get(2).getName() + " (2) ", WINDOW_WIDTH - 350,WINDOW_HEIGHT / 2);
-        g.drawString(game.getPlayers().get(3).getName() + " (3) ", WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT - 225);
+        g.drawString(game.getPlayers().get(1).getName() + " (1) ", 200, (WINDOW_HEIGHT - TITLE_BAR_HEIGHT) / 2);
+        g.drawString(game.getPlayers().get(2).getName() + " (2) ", WINDOW_WIDTH - 350,(WINDOW_HEIGHT - TITLE_BAR_HEIGHT) / 2);
+        g.drawString(game.getPlayers().get(3).getName() + " (3) ", WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT - TITLE_BAR_HEIGHT - 200);
     }
 }

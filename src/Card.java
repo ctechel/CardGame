@@ -59,8 +59,10 @@ public class Card {
     }
 
     // Draw Method
-    public void draw(Graphics g)
+    public void draw(Graphics g, int xVal, int yVal)
     {
+        this.xVal = xVal;
+        this.yVal = yVal;
         g.drawImage(this.image, xVal, yVal, window);
     }
 }

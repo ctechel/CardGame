@@ -1,4 +1,5 @@
 // Card Game by Carter Techel
+
 import java.util.ArrayList;
 
 public class Player {
@@ -36,30 +37,26 @@ public class Player {
     public int getPoints() {
         return points;
     }
-    public void setPoints(int points)
-    {
+
+    public void setPoints(int points) {
         this.points = points;
     }
 
     // Add points to a players point total
-    public void addPoints(int points)
-    {
+    public void addPoints(int points) {
         this.points += points;
     }
 
     // Add a card to a players hand
-    public void addCard(Card card)
-    {
+    public void addCard(Card card) {
         this.hand.add(card);
     }
 
-    public void removeCard(int idx)
-    {
+    public void removeCard(int idx) {
         this.hand.remove(idx);
     }
 
-    public String toString()
-    {
+    public String toString() {
         return this.name + " has " + this.points + " points \n" + this.name + "'s cards: " + this.hand;
     }
 }

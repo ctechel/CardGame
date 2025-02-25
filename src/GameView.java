@@ -1,9 +1,9 @@
 // Card Game by Carter Techel
+
 import javax.swing.*;
 import java.awt.*;
 
-public class GameView extends JFrame
-{
+public class GameView extends JFrame {
     private Image[] cardImages;
     private Image background;
     private final int WINDOW_WIDTH = 1500;
@@ -14,8 +14,7 @@ public class GameView extends JFrame
     private final int Y_VAL_CHANGE = 50;
     private Game game;
 
-    public GameView(Game game)
-    {
+    public GameView(Game game) {
         this.game = game;
         background = new ImageIcon("Resources/background.jpg").getImage();
 
@@ -25,24 +24,22 @@ public class GameView extends JFrame
         this.setVisible(true);
     }
 
-    public void paint(Graphics g)
-    {
+    public void paint(Graphics g) {
         g.setColor(Color.white);
-        if (game.getState() == 0)
-        {
+        if (game.getState() == 0) {
             g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
             paintInstructions(g);
-        }
-        else if (game.getState() == 1)
-        {
+        } else if (game.getState() == 1) {
             g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
             paintGame(g);
+        }
+        else if (game.getState() == 2){
+            g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
         }
     }
 
     // Print the instructions to the window
-    public void paintInstructions(Graphics g)
-    {
+    public void paintInstructions(Graphics g) {
         g.setFont(new Font("Serif", Font.BOLD, 80));
         g.drawString("Instructions", 500, 150);
         g.setFont(new Font("Serif", Font.BOLD, 30));
@@ -61,13 +58,19 @@ public class GameView extends JFrame
     }
 
     // Visualize the game being played on the window
-    public void paintGame(Graphics g)
-    {
+    public void paintGame(Graphics g) {
         g.setColor(Color.white);
         g.setFont(new Font("Serif", Font.BOLD, 20));
         g.drawString(game.getPlayers().get(0).getName() + " (0) ", WINDOW_WIDTH / 2 - 50, 200);
         g.drawString(game.getPlayers().get(1).getName() + " (1) ", 200, (WINDOW_HEIGHT - TITLE_BAR_HEIGHT) / 2);
-        g.drawString(game.getPlayers().get(2).getName() + " (2) ", WINDOW_WIDTH - 350,(WINDOW_HEIGHT - TITLE_BAR_HEIGHT) / 2);
+        g.drawString(game.getPlayers().get(2).getName() + " (2) ", WINDOW_WIDTH - 350, (WINDOW_HEIGHT - TITLE_BAR_HEIGHT) / 2);
         g.drawString(game.getPlayers().get(3).getName() + " (3) ", WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT - TITLE_BAR_HEIGHT - 200);
+        int cards = game.getPlayers().get(0).getHand().size();
+        for (int i = 0; i < game.getPlayers().get(0).getHand().size(); i++) {
+            game.getPlayers().get(0).getHand().get(i).draw(g, (i * 60) + ((14 - cards) * 50) + 200, 75);
+            game.getPlayers().get(1).getHand().get(i).draw(g, 60, (i * 60) + ((14 - cards) * 50));
+            game.getPlayers().get(2).getHand().get(i).draw(g, WINDOW_WIDTH - 150, (i * 60) + ((14 - cards) * 50));
+            game.getPlayers().get(3).getHand().get(i).draw(g, (i * 60) + ((14 - cards) * 50) + 200, WINDOW_HEIGHT - 175);
+        }
     }
 }

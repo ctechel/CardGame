@@ -10,10 +10,11 @@ public class Card {
     private int xVal;
     private int yVal;
     private GameView window;
+    private final int CARD_X = 35;
+    private final int CARD_Y = 50;
 
     // Constructors
-    public Card(String rank, String suit, int value, Image image, GameView window)
-    {
+    public Card(String rank, String suit, int value, Image image, GameView window) {
         this.rank = rank;
         this.suit = suit;
         this.value = value;
@@ -53,16 +54,14 @@ public class Card {
     }
 
     // toString Method
-    public String toString()
-    {
-        return  rank + " of " + suit;
+    public String toString() {
+        return rank + " of " + suit;
     }
 
     // Draw Method
-    public void draw(Graphics g, int xVal, int yVal)
-    {
+    public void draw(Graphics g, int xVal, int yVal) {
         this.xVal = xVal;
         this.yVal = yVal;
-        g.drawImage(this.image, xVal, yVal, window);
+        g.drawImage(this.image, xVal, yVal, CARD_X, CARD_Y, window);
     }
 }

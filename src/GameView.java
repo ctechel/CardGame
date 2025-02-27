@@ -32,9 +32,9 @@ public class GameView extends JFrame {
         } else if (game.getState() == 1) {
             g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
             paintGame(g);
-        }
-        else if (game.getState() == 2){
+        } else if (game.getState() == 2) {
             g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
+            paintEnd(g);
         }
     }
 
@@ -54,7 +54,7 @@ public class GameView extends JFrame {
         g.drawString("of the round. Each heart is worth 1 point and the Queen of Spades is worth 13. If you get all 26", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 8));
         g.drawString("points in the round you get 0 points and everyone else gets 26.", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 9));
         g.setColor(Color.black);
-        g.drawString("Input 3 initials each of the four users names and hit return after each one is entered.", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 10));
+        g.drawString("Input 3 initials for each of the four users names and hit return after each one is entered.", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 10));
     }
 
     // Visualize the game being played on the window
@@ -72,5 +72,15 @@ public class GameView extends JFrame {
             game.getPlayers().get(2).getHand().get(i).draw(g, WINDOW_WIDTH - 150, (i * 60) + ((14 - cards) * 50));
             game.getPlayers().get(3).getHand().get(i).draw(g, (i * 60) + ((14 - cards) * 50) + 200, WINDOW_HEIGHT - 175);
         }
+    }
+
+    public void paintEnd(Graphics g) {
+        g.setColor(Color.white);
+        g.setFont(new Font("Serif", Font.BOLD, 90));
+        g.drawString(game.getPlayers().get(0).getName() + " had " + game.getPlayers().get(0).getPoints() + " points", PRINT_X_VAL + 300, PRINT_Y_VAL);
+        g.drawString(game.getPlayers().get(1).getName() + " had " + game.getPlayers().get(1).getPoints() + " points", PRINT_X_VAL + 300, PRINT_Y_VAL + (Y_VAL_CHANGE * 2));
+        g.drawString(game.getPlayers().get(2).getName() + " had " + game.getPlayers().get(2).getPoints() + " points", PRINT_X_VAL + 300, PRINT_Y_VAL + (Y_VAL_CHANGE * 4));
+        g.drawString(game.getPlayers().get(3).getName() + " had " + game.getPlayers().get(3).getPoints() + " points", PRINT_X_VAL + 300, PRINT_Y_VAL + (Y_VAL_CHANGE * 6));
+        g.drawString("Congrats on finishing the game!!!", PRINT_X_VAL, PRINT_Y_VAL + (Y_VAL_CHANGE * 9));
     }
 }

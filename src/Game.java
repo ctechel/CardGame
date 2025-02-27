@@ -27,6 +27,7 @@ public class Game {
         // Make a deck for the game
         this.window = new GameView(this);
         deck = new Deck(this.ranks, this.suits, this.values, window);
+        // Tell the front end that it is the first phase of the game
         state = 0;
         players = new ArrayList<Player>();
         Scanner s1 = new Scanner(System.in);
@@ -56,12 +57,14 @@ public class Game {
         System.out.println("\nCongrats on finishing the game!!!");
     }
 
+    // Setup the game by getting the users names a giving them there hands
     public void setup(Scanner s1) {
         // Get the players in the games name
         for (int i = 0; i < 4; i++) {
             System.out.println("What is the name of player " + (i + 1) + "? Make sure all the names are different.");
             players.add(new Player(s1.nextLine()));
         }
+        // Move on to the second phase of the game
         state = 1;
         window.repaint();
         String player1 = players.get(0).getName();
@@ -82,6 +85,7 @@ public class Game {
         System.out.println(player4 + "'s hand is: " + players.get(3).getHand());
     }
 
+    // Run the first round of the game
     public void firstRound(Scanner s1) {
         System.out.println(("It is " + players.get(counter).getName()) + "'s turn. You have to play the 2 of Clubs. What index is it at?");
         idx = s1.nextInt();
@@ -122,6 +126,7 @@ public class Game {
         window.repaint();
     }
 
+    // Run the remainder of the game
     public void playGame(Scanner s1) {
         // Until all of the rounds are over
         while (!gameOver()) {
@@ -171,6 +176,7 @@ public class Game {
             round++;
             window.repaint();
         }
+        // Move on to the last phase of the game
         state = 2;
     }
 
